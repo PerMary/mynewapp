@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+    <div align="center">
+        <form>
+        <input type="button" value="Создание новой заявки" onClick='location.href="{% url 'demand_new'  %}"'>
+        </form>
+    </div>
+    <div align="center">
+        <table border="0" width="900">
+            <thead bgcolor="#C0C0C0">
+        		<tr>
+        			<th>Дата создания</th>
+            		<th>№ Заявки</th>
+            		<th>Описание</th>
+            		<th>Кол-во позиций</th>
+            		<th>Количество товаров</th>
+            		<th>Общая стоимость</th>
+            	</tr>
+            </thead>
+            <tbody>
+            {% for demand in demands %}
+                <tr>
+                    <td align="center" bgcolor="#FAF0E6">{{ demand.created_date }}</td>
+                    <td align="center" bgcolor="#FAF0E6">{{ demand.id }}</td>
+                    <td align="center" bgcolor="#FAF0E6"> <a href="{% url 'demand_detail' pk=demand.id %}">{{ demand.description }}</td>
+                    <td bgcolor="#FAF0E6"></td>
+                    <td bgcolor="#FAF0E6"></td>
+                    <td bgcolor="#FAF0E6"></td>
+                    <td><form><input type="button" value="Удалить" onClick='location.href="{% url 'demand_remove' pk=demand.id %}"'></form></td>
+                    <td><form><input type="button" value="Редактировать" onClick='location.href="{% url 'demand_edit' pk=demand.id %}"'></form></td>
+                </tr>
+                {% endfor %}
+               </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+        <a href="{% url 'demand_list' %}">Просмотр всех заявок на закупку</a> -
+        <a href="{% url 'demand_detail' pk=demand.pk %}">Просмотр конкретной завки на закупку </a>
+    	<p align="center"><b>Информация о завке: </b></p>
+    	<p><b><i>Дата создания: </i></b> {{ demand.created_date }} </p>
+    	<p><b><i>Номер заявки: </i></b> {{ demand.id }} </p>
+    	<p><b><i>Описание: </i></b> {{ demand.description }} </p>
+    	<p><b><i>Количество позиций: </i></b></p>
+    	<p><b><i>Количество товаров: </i></b></p>
+    	<p><b><i>Общая стоимость товаров: </i></b></p>
+    	<div align="center">
+    	    <form>
+                <input type="button" value="Добавить позицию" onClick='location.href=""'>
+            </form>
+            <form>
+                <input type="button" value="Сформировать PDF" onClick='location.href=""'>
+            </form>
+        </div>
+        <div align="center">
+    		<table border="0" width="1300">
+    			<thead bgcolor="#C0C0C0">
+    				<tr>
+    					<th align="center">Наименование: </th>
+    					<th align="center">Артикул: </th>
+    					<th align="center">Количество: </th>
+    					<th align="center">Цена за 1 шт: </th>
+    					<th align="center">Общая стоимость: </th>
+    				</tr>
+    			</thead>
+    			<tbody>
+                    {% for position in positions %}
+    				    <tr>
+    					    <td align="center" bgcolor="#FAF0E6">{{ position.name_product }}</td>
+    					    <td align="center" bgcolor="#FAF0E6">{{ position.art_product }}</td>
+    					    <td align="center" bgcolor="#FAF0E6">{{ position.quantity }}</td>
+    					    <td align="center" bgcolor="#FAF0E6">{{ position.price_one }}</td>
+    					    <td align="center" bgcolor="#FAF0E6"></td>
+                            <td align="center"><form><input type="button" value="Удалить" onClick='location.href=""'></form></td>
+                            <td><form><input type="button" value="Редактировать" onClick='location.href=""'></form></td>
+    				    </tr>
+                    {% endfor %}
+    			</tbody>
+    		</table>
+    	</div>
+{% endblock %}
