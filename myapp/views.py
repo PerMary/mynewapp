@@ -48,4 +48,17 @@ def demand_remove(request,pk):
 	return redirect('demand_list')
 
 #Добавление новой позиции в заявку
+def position_new(request, pk):
+	demand = get_object_or_404(Demand, pk=pk)
+	if request.method == "POST":
+		form = PositionForm(request.POST)
+		if form.is_valid():
+			positions = form.save(commit=False)
+			#При сохранении форма должна автоматически привязаться к заявке в которой она создается 
+			#positions.id = pk.demand.pk
+			positions.save()
+			return redirect('demand_detail', pk=demand.pk)
+	else:
+	    form = PositionForm()
+	return render(request, 'myapp/position_new.html', {'demand': demand, 'form': form})
 

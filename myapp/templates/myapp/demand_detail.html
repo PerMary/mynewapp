@@ -11,7 +11,7 @@
     	<p><b><i>Общая стоимость товаров: </i></b></p>
     	<div align="center">
     	    <form>
-                <input type="button" value="Добавить позицию" onClick='location.href=""'>
+                <input type="button" value="Добавить позицию" onClick='location.href="{% url 'position_new' pk=demand.pk %}"'>
             </form>
             <form>
                 <input type="button" value="Сформировать PDF" onClick='location.href=""'>
