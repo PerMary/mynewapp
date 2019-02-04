@@ -14,4 +14,4 @@ class PositionForm(forms.ModelForm):
 
 	class Meta():
 		model = Position
-		fields = ('name_product', 'art_product', 'quantity', 'price_one',)
+		fields = ( 'name_product', 'art_product', 'quantity', 'price_one',)

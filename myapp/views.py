@@ -50,15 +50,44 @@ def demand_remove(request,pk):
 #Добавление новой позиции в заявку
 def position_new(request, pk):
 	demand = get_object_or_404(Demand, pk=pk)
+	positions = Position.objects.filter(id_demand=pk)
 	if request.method == "POST":
 		form = PositionForm(request.POST)
 		if form.is_valid():
 			positions = form.save(commit=False)
 			#При сохранении форма должна автоматически привязаться к заявке в которой она создается 
-			#positions.id = pk.demand.pk
+			positions.id_demand = demand 
 			positions.save()
 			return redirect('demand_detail', pk=demand.pk)
 	else:
 	    form = PositionForm()
 	return render(request, 'myapp/position_new.html', {'demand': demand, 'form': form})
+
+#Редактирование позиции
+def position_edit(request, pk):
+	demand = get_object_or_404(Demand, pk=pk)
+	#как привязать к конкретной позиции
+	positions = Position.objects.get(id_demand=pk)
+	if request.method == "POST":
+		form = PositionForm(request.POST, instance=positions)
+		if form.is_valid():
+			position = form.save(commit=False)
+			#При сохранении форма должна автоматически привязаться к заявке в которой она создается 
+			position.id_demand = demand 
+			position.save()
+			return redirect('demand_detail', pk=demand.pk)
+	else:
+	    form = PositionForm(instance=positions)
+	return render(request, 'myapp/position_new.html', {'demand': demand, 'form': form})
+
+
+#Удаление позиции
+#Удаляет все позиции из заявки, как удалить конкретную позицию?
+def position_remove(request,pk):
+	demand = get_object_or_404(Demand, pk=pk)
+	position = Position.objects.filter(id_demand=pk)
+	#position.id = demand
+	position.delete()
+	return redirect('demand_detail', pk=demand.pk)
+
 

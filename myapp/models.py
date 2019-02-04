@@ -14,6 +14,13 @@ class Demand(models.Model):
 	def __str__(self):
 		return self.description
 
+	def position_count(self):
+		return Position.objects.filter(id_demand=self.id).count()
+
+	def product_count(self):
+		#как вывести количество всех товаров
+		return Position.objects.filter(quantity=self.id).count()
+
 #Позиции
 class Position(models.Model):
 	id = models.AutoField(primary_key=True)
@@ -25,4 +32,8 @@ class Position(models.Model):
 	#price_all =
 
 	def __str__(self):
-		return "Позиция " + str(self.id) 
+		return "Позиция " + str(self.id) + ", " + self.name_product 
+
+	def cost(self):
+		return(self.quantity * self.price_one)
+

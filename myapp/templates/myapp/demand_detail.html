@@ -6,7 +6,7 @@
     	<p><b><i>Дата создания: </i></b> {{ demand.created_date }} </p>
     	<p><b><i>Номер заявки: </i></b> {{ demand.id }} </p>
     	<p><b><i>Описание: </i></b> {{ demand.description }} </p>
-    	<p><b><i>Количество позиций: </i></b></p>
+    	<p><b><i>Количество позиций: {{ demand.position_count }} </i></b></p>
     	<p><b><i>Количество товаров: </i></b></p>
     	<p><b><i>Общая стоимость товаров: </i></b></p>
     	<div align="center">
@@ -35,9 +35,9 @@
     					    <td align="center" bgcolor="#FAF0E6">{{ position.art_product }}</td>
     					    <td align="center" bgcolor="#FAF0E6">{{ position.quantity }}</td>
     					    <td align="center" bgcolor="#FAF0E6">{{ position.price_one }}</td>
-    					    <td align="center" bgcolor="#FAF0E6"></td>
-                            <td align="center"><form><input type="button" value="Удалить" onClick='location.href=""'></form></td>
-                            <td><form><input type="button" value="Редактировать" onClick='location.href=""'></form></td>
+    					    <td align="center" bgcolor="#FAF0E6">{{ position.cost }}</td>
+                            <td align="center"><form><input type="button" value="Удалить" onClick='location.href="{% url 'position_remove' pk=demand.id %}"'></form></td>
+                            <td><form><input type="button" value="Редактировать" onClick='location.href="{% url 'position_edit' pk=demand.pk %}"'></form></td>
     				    </tr>
                     {% endfor %}
     			</tbody>
