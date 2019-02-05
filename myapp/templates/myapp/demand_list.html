@@ -22,12 +22,12 @@
                 <tr>
                     <td align="center" bgcolor="#FAF0E6">{{ demand.created_date }}</td>
                     <td align="center" bgcolor="#FAF0E6">{{ demand.id }}</td>
-                    <td align="center" bgcolor="#FAF0E6"> <a href="{% url 'demand_detail' pk=demand.id %}">{{ demand.description }}</td>
+                    <td align="center" bgcolor="#FAF0E6"> <a href="{% url 'demand_detail' id_demand=demand.id %}">{{ demand.description }}</td>
                     <td align="center" bgcolor="#FAF0E6">{{ demand.position_count }}</td>
                     <td align="center" bgcolor="#FAF0E6">{{ demand.product_count }}</td>
-                    <td align="center" bgcolor="#FAF0E6"></td>
-                    <td><form><input type="button" value="Удалить" onClick='location.href="{% url 'demand_remove' pk=demand.id %}"'></form></td>
-                    <td><form><input type="button" value="Редактировать" onClick='location.href="{% url 'demand_edit' pk=demand.id %}"'></form></td>
+                    <td align="center" bgcolor="#FAF0E6">{{ demand.price_all }}</td>
+                    <td><form><input type="button" value="Удалить" onClick='location.href="{% url 'demand_remove' id_demand=demand.id %}"'></form></td>
+                    <td><form><input type="button" value="Редактировать" onClick='location.href="{% url 'demand_edit' id_demand=demand.id %}"'></form></td>
                 </tr>
                 {% endfor %}
                </tbody>

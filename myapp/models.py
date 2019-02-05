@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.conf import settings
 from django.utils import timezone
 
@@ -7,9 +8,7 @@ class Demand(models.Model):
 	created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания:')
 	id = models.AutoField(primary_key=True)
 	description = models.CharField(max_length=200, verbose_name='Описание заявки:')
-	#position = 
-	#product = 
-	#price_all = 
+
 
 	def __str__(self):
 		return self.description
@@ -18,8 +17,17 @@ class Demand(models.Model):
 		return Position.objects.filter(id_demand=self.id).count()
 
 	def product_count(self):
-		#как вывести количество всех товаров
-		return Position.objects.filter(quantity=self.id).count()
+		prod_count = Position.objects.filter(id_demand=self.id).aggregate(Sum("quantity"))['quantity__sum']
+		if prod_count == None:
+			prod_count = 0
+		return prod_count
+
+	def price_all(self):
+		price_all= 0
+		positions = Position.objects.filter(id_demand=self.id)
+		for position in positions:
+			price_all += position.quantity * position.price_one
+		return price_all
 
 #Позиции
 class Position(models.Model):
