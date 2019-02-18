@@ -1,8 +1,6 @@
 {% extends 'myapp/base.html' %}
 {% block content %}
-    <a href="{% url 'demand_list' %}">Просмотр всех заявок на закупку</a> - 
-    <a href="{% url 'demand_detail' pk=demand.pk %}">Просмотр конкретной завки на закупку </a>
-    <a href="">Редактирование позиции</a>
+    <a href="{% url 'demand_list' %}">Просмотр всех заявок на закупку</a>  
     <h1>Редактировать позицию:</h1>
     <form method="POST" class="table-form"> {% csrf_token %}
     {{ form.as_p }}
